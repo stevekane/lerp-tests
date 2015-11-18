@@ -1,0 +1,25 @@
+{
+  "name": "lerp-tests",
+  "version": "1.0.0",
+  "description": "This is a quick test of lerp functions",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com/stevekane/lerp-tests.git"
+  },
+  "keywords": [
+    "lerp easing tween"
+  ],
+  "author": "Steve Kane",
+  "license": "MIT",
+  "dependencies": {
+    "eases": "^1.0.8",
+    "lerp": "^1.0.3"
+  },
+  "devDependencies": {
+    "tape": "^4.2.2"
+  }
+}
