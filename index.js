@@ -1,36 +1,46 @@
-const lerp = require('lerp')
 const eases = require('eases')
 
-function lerpAll (v0s, v1s, t) {
+module.exports.Keyframe = Keyframe
+module.exports.lerpKeyframes = lerpKeyframes
+
+function lerp(v0, v1, f) {
+  return v0 * (1 - f) + v1 * f
+}
+
+function lerpAll (v0s, v1s, f) {
   var i = -1
   var results = []
 
   while (++i < v0s.length) {
-    results.push(lerp(v0s[i], v1s[i], t)) 
+    results.push(lerp(v0s[i], v1s[i], f)) 
   }
   return results
 }
 
-module.exports.KF = function KF (type, t, v) {
-  this.type = type
-  this.t = t
-  this.v = v
+function step (v0, v1, f) {
+  return 0
 }
 
-module.exports.lerpKFs = function lerpKFs (kfs, t) {
+function Keyframe (type, frame, value) {
+  this.type = type
+  this.frame = frame
+  this.value = value
+}
+
+function lerpKeyframes (kfs, f) {
   var i = kfs.length
 
-  while (i--) if (kfs[i].t <= t) break
+  while (i--) if (kfs[i].frame <= f) break
 
   const left = kfs[i]
   const right = kfs[i+1]
 
-  if (!right || right.t === left.t) return left.v
+  if (!right || right.frame === left.frame) return left.value
 
-  const easingFn = eases[left.type] || eases.linear
-  const tNormal = (t - left.t) / (right.t - left.t)
+  const easingFn = eases[left.type] || step
+  const tNormal = (f - left.frame) / (right.frame - left.frame)
   const tAdjusted = easingFn(tNormal)
-  const lerpFn = left.v.length ? lerpAll : lerp
+  const lerpFn = left.value.length ? lerpAll : lerp
 
-  return lerpFn(left.v, right.v, tAdjusted)
+  return lerpFn(left.value, right.value, tAdjusted)
 }

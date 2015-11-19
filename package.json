@@ -16,8 +16,7 @@
   "author": "Steve Kane",
   "license": "MIT",
   "dependencies": {
-    "eases": "^1.0.8",
-    "lerp": "^1.0.3"
+    "eases": "^1.0.8"
   },
   "devDependencies": {
     "tape": "^4.2.2"
